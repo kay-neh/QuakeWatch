@@ -1,13 +1,13 @@
-package com.example.quakewatch.data.remote.model
+package com.example.quakewatch.data.source.network
 
 import com.google.gson.annotations.SerializedName
 
-data class EarthquakeResponse(
+data class NetworkEarthquakeProperty(
     @SerializedName("features")
-    val features : List<Feature>
+    val networkEarthquakes: List<NetworkEarthquake>
 )
 
-data class Feature(
+data class NetworkEarthquake(
     @SerializedName("properties")
     val property : Property,
     @SerializedName("geometry")

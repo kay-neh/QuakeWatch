@@ -1,10 +1,10 @@
-package com.example.quakewatch.data.local.model
+package com.example.quakewatch.data.source.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "earthquake")
-data class Earthquake(
+data class LocalEarthquake(
     @PrimaryKey(autoGenerate = false)
     val eventId : String,
     val magnitude : Double,

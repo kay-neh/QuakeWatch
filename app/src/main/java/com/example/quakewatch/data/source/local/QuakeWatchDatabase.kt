@@ -1,11 +1,10 @@
-package com.example.quakewatch.data.local
+package com.example.quakewatch.data.source.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.quakewatch.data.local.model.Earthquake
 
 @Database(
-    entities = [Earthquake::class],
+    entities = [LocalEarthquake::class],
     version = 1
 )
 abstract class QuakeWatchDatabase : RoomDatabase() {
