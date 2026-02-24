@@ -1,4 +1,4 @@
-package com.example.quakewatch.domain
+package com.example.quakewatch.domain.model
 
 data class Earthquake(
     val eventId: String,

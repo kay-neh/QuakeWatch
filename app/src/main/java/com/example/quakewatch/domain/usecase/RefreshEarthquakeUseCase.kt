@@ -1,0 +1,12 @@
+package com.example.quakewatch.domain.usecase
+
+import com.example.quakewatch.data.toLocal
+import com.example.quakewatch.domain.repository.QuakeWatchRepository
+
+class RefreshEarthquakeUseCase(
+    private val quakeWatchRepository: QuakeWatchRepository
+) {
+    suspend operator fun invoke() {
+        quakeWatchRepository.upsertEarthquakes(quakeWatchRepository.loadEarthquakes().toLocal())
+    }
+}

@@ -1,8 +1,8 @@
 package com.example.quakewatch.data
 
-import com.example.quakewatch.data.source.local.LocalEarthquake
+import com.example.quakewatch.data.source.local.room.LocalEarthquake
 import com.example.quakewatch.data.source.network.NetworkEarthquake
-import com.example.quakewatch.domain.Earthquake
+import com.example.quakewatch.domain.model.Earthquake
 
 // Network DTO to Local DTO
 fun NetworkEarthquake.toLocal() =
@@ -35,3 +35,9 @@ fun LocalEarthquake.toExternal() =
         longitude = longitude,
         depth = depth
     )
+
+fun List<LocalEarthquake>.toExternal() =
+    map {
+        it.toExternal()
+    }
+

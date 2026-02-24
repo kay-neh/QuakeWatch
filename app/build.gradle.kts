@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -86,5 +87,9 @@ dependencies {
     implementation(libs.converter.gson)
     //implementation(libs.converter.moshi)
     implementation(libs.logging.interceptor)
+
+    //DataStore (Proto datastore)
+    implementation(libs.androidx.datastore)
+    implementation(libs.kotlinx.serialization.json)
 
 }

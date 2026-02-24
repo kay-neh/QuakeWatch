@@ -1,4 +1,4 @@
-package com.example.quakewatch.data.source.local
+package com.example.quakewatch.data.source.local.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

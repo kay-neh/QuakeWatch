@@ -9,22 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.quakewatch.data.DefaultQuakeWatchRepository
-import com.example.quakewatch.data.source.local.EarthquakeDao
-import com.example.quakewatch.data.source.local.QuakeWatchDatabase
-import com.example.quakewatch.data.source.local.EarthquakeLocalDataSource
-import com.example.quakewatch.data.source.local.LocalDataSource
-import com.example.quakewatch.data.source.network.EarthquakeNetworkDataSource
-import com.example.quakewatch.data.source.network.NetworkDataSource
-import com.example.quakewatch.data.source.network.QuakeWatchService
-import com.example.quakewatch.domain.QuakeWatchRepository
-import com.example.quakewatch.ui.screens.earthquakes.EarthquakesViewModel
+import com.example.quakewatch.ui.screen.earthquakes.EarthquakesViewModel
 import com.example.quakewatch.ui.theme.QuakeWatchTheme
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class QuakeWatchActivity : ComponentActivity() {
@@ -34,7 +22,14 @@ class QuakeWatchActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         val earthquakesViewModel by viewModels<EarthquakesViewModel>()
-        earthquakesViewModel.deleteAll()
+        lifecycleScope.launch {
+            earthquakesViewModel.earthquakes.collect { earthquakes ->
+                for (earthquake in earthquakes) {
+                    println(earthquake)
+                }
+            }
+        }
+
 
         setContent {
             QuakeWatchTheme {
