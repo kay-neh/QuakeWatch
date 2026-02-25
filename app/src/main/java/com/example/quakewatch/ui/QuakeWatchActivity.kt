@@ -6,10 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
-import com.example.quakewatch.ui.screen.earthquakes.EarthquakesViewModel
+import com.example.quakewatch.navigation.NavigationRoot
+import com.example.quakewatch.ui.screen.earthquakeList.EarthquakeListViewModel
 import com.example.quakewatch.ui.theme.QuakeWatchTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -21,21 +23,25 @@ class QuakeWatchActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val earthquakesViewModel by viewModels<EarthquakesViewModel>()
-        lifecycleScope.launch {
-            earthquakesViewModel.earthquakes.collect { earthquakes ->
-                for (earthquake in earthquakes) {
-                    println(earthquake)
-                }
-            }
-        }
+//        val earthquakeListViewModel by viewModels<EarthquakeListViewModel>()
+//        lifecycleScope.launch {
+//            earthquakeListViewModel.earthquakes.collect { earthquakes ->
+//                for (earthquake in earthquakes) {
+//                    println(earthquake)
+//                }
+//            }
+//        }
 
 
         setContent {
             QuakeWatchTheme {
-                //val earthquakeViewModel: EarthquakesViewModel = viewModel()
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
+                //val earthquakeViewModel: EarthquakeListViewModel = viewModel()
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    NavigationRoot(
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
             }
         }

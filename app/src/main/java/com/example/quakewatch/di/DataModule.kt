@@ -19,12 +19,10 @@ import com.example.quakewatch.data.source.network.NetworkDataSource
 import com.example.quakewatch.data.source.network.QuakeWatchService
 import com.example.quakewatch.domain.repository.QuakeWatchRepository
 import com.example.quakewatch.domain.usecase.QuakeWatchUseCases
-import com.example.quakewatch.domain.usecase.GetEarthquakeUseCase
 import com.example.quakewatch.domain.usecase.GetSortedEarthquakesUseCase
 import com.example.quakewatch.domain.usecase.GetUserPreferenceUseCase
 import com.example.quakewatch.domain.usecase.RefreshEarthquakeUseCase
-import com.example.quakewatch.domain.usecase.SyncEarthquakeUseCase
-import com.example.quakewatch.domain.usecase.UpdateUserPreferenceUseCase
+import com.example.quakewatch.domain.usecase.UpdateSortTypePreferenceUseCase
 import com.example.quakewatch.domain.usecase.UserPreferenceUseCases
 import dagger.Binds
 import dagger.Module
@@ -126,7 +124,7 @@ object AppModule {
     fun provideUserPreferenceUseCases(repository: QuakeWatchRepository): UserPreferenceUseCases {
         return UserPreferenceUseCases(
             getUserPreference = GetUserPreferenceUseCase(repository),
-            updateUserPreference = UpdateUserPreferenceUseCase(repository)
+            updateSortTypePreference = UpdateSortTypePreferenceUseCase(repository)
         )
     }
 
