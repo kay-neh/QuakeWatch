@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.QuakeWatch" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.QuakeWatch" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar" />
+    <!-- Customize your theme here. -->
+    <!--    <item name="android:statusBarColor">@android:color/transparent</item>-->
+    <!--    <item name="android:navigationBarColor">@android:color/transparent</item>-->
+    <!--    &lt;!&ndash; Optional: set navigation bar contrast enforced to false for a fully transparent nav bar on API >= 29 &ndash;&gt;-->
+    <!--    <item name="android:navigationBarContrastEnforced">false</item>-->
 </resources>

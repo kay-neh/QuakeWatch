@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 sealed interface Route : NavKey {
 
     @Serializable
-    data object EarthquakeList : Route
+    data object EarthquakeFeed : Route
 
     @Serializable
     data class EarthquakeDetail(val eventId: String) : Route
