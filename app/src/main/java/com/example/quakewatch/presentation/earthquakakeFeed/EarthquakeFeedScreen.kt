@@ -1,4 +1,4 @@
-package com.example.quakewatch.ui.screen.earthquakeFeed
+package com.example.quakewatch.presentation.earthquakakeFeed
 
 import android.content.Context
 import androidx.compose.foundation.background
@@ -40,7 +40,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.quakewatch.R
 import kotlin.math.floor
@@ -50,10 +49,13 @@ import kotlin.math.floor
 @Composable
 fun EarthquakeFeedScreen(
     modifier: Modifier = Modifier,
+    viewModel: EarthquakeFeedViewModel,
     onNavigate: () -> Unit,
     onItemClick: (String) -> Unit
 ) {
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val state by viewModel.state.collectAsStateWithLifecycle(EarthquakeFeedUIState())
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -75,7 +77,10 @@ fun EarthquakeFeedScreen(
     ) {
         EarthquakeList(
             modifier = modifier.padding(it),
-            onItemClick = onItemClick
+            state = state,
+            onItemClick = { eventId ->
+                onItemClick(eventId)
+            }
         )
     }
 }
@@ -83,14 +88,13 @@ fun EarthquakeFeedScreen(
 @Composable
 fun EarthquakeList(
     modifier: Modifier = Modifier,
-    viewModel: EarthquakeFeedViewModel = hiltViewModel(),
+    state: EarthquakeFeedUIState,
     onItemClick: (String) -> Unit
 ) {
-    val items by viewModel.earthquakes.collectAsStateWithLifecycle(emptyList())
     LazyColumn(
         modifier = modifier
     ) {
-        items(items) { earthquakeFeed ->
+        items(state.earthquakes) { earthquakeFeed ->
             EarthquakeItem(
                 context = LocalContext.current,
                 earthquakeFeed = earthquakeFeed,

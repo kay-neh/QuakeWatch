@@ -1,4 +1,4 @@
-package com.example.quakewatch.ui.screen.settings
+package com.example.quakewatch.presentation.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,7 +33,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.quakewatch.R
 import com.example.quakewatch.data.source.local.datastore.SortType
@@ -42,7 +41,7 @@ import com.example.quakewatch.data.source.local.datastore.SortType
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
-    viewModel: SettingsViewModel = hiltViewModel(),
+    viewModel: SettingsViewModel,
     onEvent: (SettingsEvent) -> Unit = viewModel::onEvent,
     onNavigate: () -> Unit
 ) {
@@ -255,7 +254,7 @@ fun UpdateSortTypeDialog(
 @Preview
 @Composable
 private fun PreviewSettingsScreen() {
-    SettingsScreen(onNavigate = {})
+//    SettingsScreen(onNavigate = {})
 }
 
 @Preview

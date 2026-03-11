@@ -8,20 +8,24 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import com.example.quakewatch.ui.screen.earthquakeDetail.EarthquakeDetailScreen
-import com.example.quakewatch.ui.screen.earthquakeFeed.EarthquakeFeedScreen
-import com.example.quakewatch.ui.screen.settings.SettingsScreen
+import com.example.quakewatch.presentation.earthquakeDetail.EarthquakeDetailScreen
+import com.example.quakewatch.presentation.earthquakeDetail.EarthquakeDetailViewModel
+import com.example.quakewatch.presentation.earthquakakeFeed.EarthquakeFeedScreen
+import com.example.quakewatch.presentation.earthquakakeFeed.EarthquakeFeedViewModel
+import com.example.quakewatch.presentation.settings.SettingsScreen
+import com.example.quakewatch.presentation.settings.SettingsViewModel
 
 @Composable
 fun NavigationRoot(modifier: Modifier = Modifier) {
 
     val backStack = rememberNavBackStack(
-        elements = arrayOf(Route.EarthquakeFeed)
+        Route.EarthquakeFeed
     )
     NavDisplay(
         modifier = modifier.fillMaxSize(),
@@ -44,16 +48,32 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
         ),
         entryProvider = entryProvider {
             entry<Route.EarthquakeFeed> {
+                val viewModel: EarthquakeFeedViewModel = hiltViewModel()
                 EarthquakeFeedScreen(
+                    viewModel = viewModel,
                     onNavigate = { backStack.add(Route.Settings) },
-                    onItemClick = { backStack.add(Route.EarthquakeDetail(it)) }
+                    onItemClick = {
+                        backStack.add(Route.EarthquakeDetail(it))
+                    }
                 )
             }
             entry<Route.EarthquakeDetail> {
-                EarthquakeDetailScreen(eventId = it.eventId)
+                val viewmodel: EarthquakeDetailViewModel =
+                    hiltViewModel<EarthquakeDetailViewModel, EarthquakeDetailViewModel.Factory>(
+                        creationCallback = { factory ->
+                            factory.create(
+                                eventId = it.eventId
+                            )
+                        }
+                    )
+                EarthquakeDetailScreen(
+                    viewModel = viewmodel
+                )
             }
             entry<Route.Settings> {
+                val viewModel: SettingsViewModel = hiltViewModel()
                 SettingsScreen(
+                    viewModel = viewModel,
                     onNavigate = { backStack.remove(Route.Settings) }
                 )
             }

@@ -1,4 +1,4 @@
-package com.example.quakewatch.ui.screen.earthquakeFeed
+package com.example.quakewatch.presentation.earthquakakeFeed
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -6,27 +6,27 @@ import androidx.lifecycle.viewModelScope
 import com.example.quakewatch.domain.model.toEarthquakeFeedList
 import com.example.quakewatch.domain.usecase.QuakeWatchUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.collections.emptyList
 
 @HiltViewModel
 class EarthquakeFeedViewModel @Inject constructor(
-    val quakeWatchUseCases: QuakeWatchUseCases
+    private val quakeWatchUseCases: QuakeWatchUseCases
 ) : ViewModel() {
 
-    val earthquakes = quakeWatchUseCases.getSortedEarthquakes()
+    private val _earthquakes = quakeWatchUseCases.getSortedEarthquakes()
         .map { earthquakes ->
             earthquakes.toEarthquakeFeedList()
         }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
-            emptyList()
+    private val _state = MutableStateFlow(EarthquakeFeedUIState())
+    val state = combine(_earthquakes, _state) { earthquakes, state ->
+        state.copy(
+            earthquakes = earthquakes
         )
+    }
 
 
     init {
@@ -34,7 +34,7 @@ class EarthquakeFeedViewModel @Inject constructor(
         refreshEarthquakes()
     }
 
-    fun refreshEarthquakes() {
+    private fun refreshEarthquakes() {
         viewModelScope.launch {
             quakeWatchUseCases.refreshEarthquake()
         }

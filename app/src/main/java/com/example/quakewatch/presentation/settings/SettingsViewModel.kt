@@ -1,4 +1,4 @@
-package com.example.quakewatch.ui.screen.settings
+package com.example.quakewatch.presentation.settings
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

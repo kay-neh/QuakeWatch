@@ -18,6 +18,7 @@ import com.example.quakewatch.data.source.network.EarthquakeNetworkDataSource
 import com.example.quakewatch.data.source.network.NetworkDataSource
 import com.example.quakewatch.data.source.network.QuakeWatchService
 import com.example.quakewatch.domain.repository.QuakeWatchRepository
+import com.example.quakewatch.domain.usecase.GetEarthquakeUseCase
 import com.example.quakewatch.domain.usecase.QuakeWatchUseCases
 import com.example.quakewatch.domain.usecase.GetSortedEarthquakesUseCase
 import com.example.quakewatch.domain.usecase.GetUserPreferenceUseCase
@@ -115,7 +116,8 @@ object AppModule {
     fun provideQuakeWatchUseCases(repository: QuakeWatchRepository): QuakeWatchUseCases {
         return QuakeWatchUseCases(
             refreshEarthquake = RefreshEarthquakeUseCase(repository),
-            getSortedEarthquakes = GetSortedEarthquakesUseCase(repository)
+            getSortedEarthquakes = GetSortedEarthquakesUseCase(repository),
+            getEarthquake = GetEarthquakeUseCase(repository)
         )
     }
 
@@ -127,7 +129,13 @@ object AppModule {
             updateSortTypePreference = UpdateSortTypePreferenceUseCase(repository)
         )
     }
-
-
+//
+//    @Provides
+//    @Singleton
+//    fun provideEarthquakeUseCase(repository: QuakeWatchRepository): GetEarthquakeUseCase {
+//        return GetEarthquakeUseCase(
+//            repository
+//        )
+//    }
 
 }

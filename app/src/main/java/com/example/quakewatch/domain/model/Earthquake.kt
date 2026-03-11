@@ -1,6 +1,7 @@
 package com.example.quakewatch.domain.model
 
-import com.example.quakewatch.ui.screen.earthquakeFeed.EarthquakeFeed
+import com.example.quakewatch.presentation.earthquakeDetail.EarthquakeDetail
+import com.example.quakewatch.presentation.earthquakakeFeed.EarthquakeFeed
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -32,6 +33,19 @@ fun List<Earthquake>.toEarthquakeFeedList(): List<EarthquakeFeed> {
     return this.map {
         it.toEarthquakeFeed()
     }
+}
+
+fun Earthquake.toEarthquakeDetail(): EarthquakeDetail {
+    return EarthquakeDetail(
+        eventId = eventId,
+        magnitude = formatMagnitude(magnitude),
+        place = getLocation(place),
+        time = formatDateTime(time),
+        url = url,
+        longitude = 0.0,
+        latitude = 0.0,
+        depth = 0.0
+    )
 }
 
 fun formatMagnitude(magnitude: Double): String {
@@ -74,3 +88,15 @@ fun formatTime(time: Long): String {
     val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
     return dateFormat.format(dateObject)
 }
+
+fun formatDateTime(time: Long): String {
+    val dateObject = Date(time)
+    val dateFormat = SimpleDateFormat("LLL dd, yyyy h:mm a", Locale.getDefault())
+    return dateFormat.format(dateObject)
+}
+
+fun formatThreeDecimal(number: Double): String? {
+    val magnitudeFormat = DecimalFormat("0.000")
+    return magnitudeFormat.format(number)
+}
+

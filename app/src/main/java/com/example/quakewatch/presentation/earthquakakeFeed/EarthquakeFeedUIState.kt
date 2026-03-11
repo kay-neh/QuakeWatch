@@ -1,4 +1,4 @@
-package com.example.quakewatch.ui.screen.earthquakeFeed
+package com.example.quakewatch.presentation.earthquakakeFeed
 
 data class EarthquakeFeedUIState(
     val earthquakes: List<EarthquakeFeed> = emptyList(),
