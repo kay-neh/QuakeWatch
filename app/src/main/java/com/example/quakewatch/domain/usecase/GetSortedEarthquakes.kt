@@ -7,7 +7,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 
-class GetSortedEarthquakesUseCase(
+class GetSortedEarthquakes(
     private val quakeWatchRepository: QuakeWatchRepository
 ) {
 

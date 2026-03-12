@@ -1,4 +1,4 @@
-package com.example.quakewatch.ui
+package com.example.quakewatch.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

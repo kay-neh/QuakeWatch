@@ -18,12 +18,12 @@ import com.example.quakewatch.data.source.network.EarthquakeNetworkDataSource
 import com.example.quakewatch.data.source.network.NetworkDataSource
 import com.example.quakewatch.data.source.network.QuakeWatchService
 import com.example.quakewatch.domain.repository.QuakeWatchRepository
-import com.example.quakewatch.domain.usecase.GetEarthquakeUseCase
+import com.example.quakewatch.domain.usecase.GetEarthquake
 import com.example.quakewatch.domain.usecase.QuakeWatchUseCases
-import com.example.quakewatch.domain.usecase.GetSortedEarthquakesUseCase
-import com.example.quakewatch.domain.usecase.GetUserPreferenceUseCase
-import com.example.quakewatch.domain.usecase.RefreshEarthquakeUseCase
-import com.example.quakewatch.domain.usecase.UpdateSortTypePreferenceUseCase
+import com.example.quakewatch.domain.usecase.GetSortedEarthquakes
+import com.example.quakewatch.domain.usecase.GetUserPreference
+import com.example.quakewatch.domain.usecase.RefreshEarthquake
+import com.example.quakewatch.domain.usecase.UpdateSortTypePreference
 import com.example.quakewatch.domain.usecase.UserPreferenceUseCases
 import dagger.Binds
 import dagger.Module
@@ -115,9 +115,9 @@ object AppModule {
     @Singleton
     fun provideQuakeWatchUseCases(repository: QuakeWatchRepository): QuakeWatchUseCases {
         return QuakeWatchUseCases(
-            refreshEarthquake = RefreshEarthquakeUseCase(repository),
-            getSortedEarthquakes = GetSortedEarthquakesUseCase(repository),
-            getEarthquake = GetEarthquakeUseCase(repository)
+            refreshEarthquake = RefreshEarthquake(repository),
+            getSortedEarthquakes = GetSortedEarthquakes(repository),
+            getEarthquake = GetEarthquake(repository)
         )
     }
 
@@ -125,15 +125,15 @@ object AppModule {
     @Singleton
     fun provideUserPreferenceUseCases(repository: QuakeWatchRepository): UserPreferenceUseCases {
         return UserPreferenceUseCases(
-            getUserPreference = GetUserPreferenceUseCase(repository),
-            updateSortTypePreference = UpdateSortTypePreferenceUseCase(repository)
+            getUserPreference = GetUserPreference(repository),
+            updateSortTypePreference = UpdateSortTypePreference(repository)
         )
     }
 //
 //    @Provides
 //    @Singleton
-//    fun provideEarthquakeUseCase(repository: QuakeWatchRepository): GetEarthquakeUseCase {
-//        return GetEarthquakeUseCase(
+//    fun provideEarthquakeUseCase(repository: QuakeWatchRepository): GetEarthquake {
+//        return GetEarthquake(
 //            repository
 //        )
 //    }

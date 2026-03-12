@@ -3,7 +3,7 @@ package com.example.quakewatch.domain.usecase
 import com.example.quakewatch.data.source.local.datastore.SortType
 import com.example.quakewatch.domain.repository.QuakeWatchRepository
 
-class UpdateSortTypePreferenceUseCase(
+class UpdateSortTypePreference(
     private val quakeWatchRepository: QuakeWatchRepository
 ) {
 
