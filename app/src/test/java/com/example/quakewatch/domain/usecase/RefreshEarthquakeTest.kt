@@ -7,26 +7,25 @@ import com.example.quakewatch.data.source.network.NetworkEarthquake
 import com.example.quakewatch.data.source.network.Property
 import com.example.quakewatch.data.toExternal
 import com.example.quakewatch.data.toLocal
-import com.example.quakewatch.domain.repository.QuakeWatchRepository
+import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-class GetEarthquakeTest {
+class RefreshEarthquakeTest {
 
     private lateinit var networkEarthquakesToInsert: MutableList<NetworkEarthquake>
     private lateinit var fakeRepository: FakeRepository
-    private lateinit var getEarthquake: GetEarthquake
+    private lateinit var refreshEarthquake: RefreshEarthquake
 
 
     @Before
     fun setup() {
         fakeRepository = FakeRepository()
-        getEarthquake = GetEarthquake(fakeRepository)
+        refreshEarthquake = RefreshEarthquake(fakeRepository)
 
-        // pre populate data
         // pre populate data
         networkEarthquakesToInsert = mutableListOf()
         networkEarthquakesToInsert.add(
@@ -58,16 +57,22 @@ class GetEarthquakeTest {
             )
         )
         fakeRepository.setNetworkResponse(networkEarthquakesToInsert)
-        runBlocking {
-            fakeRepository.upsertEarthquakes(fakeRepository.loadEarthquakes().toLocal())
-        }
     }
 
     @Test
-    fun `Get earthquake by id returns correct earthquake`() = runBlocking {
-        val result = getEarthquake("1").first()
-        assertThat(result).isEqualTo(networkEarthquakesToInsert.toLocal().find { it.eventId == "1" }
-            ?.toExternal())
+    fun `Get earthquake from network, returns same response`() = runBlocking {
+        refreshEarthquake()
+        val result = fakeRepository.loadEarthquakes()
+
+        assertThat(result).isEqualTo(networkEarthquakesToInsert)
+    }
+
+    @Test
+    fun `Get earthquake from network and save to db returns valid earthquake`() = runBlocking {
+        refreshEarthquake()
+        val result = fakeRepository.getLocalResponses().first()
+
+        assertThat(result).isEqualTo(networkEarthquakesToInsert.toLocal())
     }
 
 }

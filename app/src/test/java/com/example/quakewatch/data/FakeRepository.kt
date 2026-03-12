@@ -16,6 +16,15 @@ class FakeRepository : QuakeWatchRepository {
     private val localEarthquakes = mutableListOf<LocalEarthquake>()
     private val userPreference = UserPreference()
 
+    fun setNetworkResponse(networkEarthquakes: List<NetworkEarthquake>) {
+        networkEarthquakes.forEach {
+            this.networkEarthquakes.add(it)
+        }
+    }
+
+    fun getLocalResponses(): Flow<List<LocalEarthquake>> {
+        return flowOf(localEarthquakes)
+    }
 
     override suspend fun loadEarthquakes(): List<NetworkEarthquake> {
         return networkEarthquakes
@@ -64,8 +73,6 @@ class FakeRepository : QuakeWatchRepository {
     }
 
     override suspend fun setSortType(sortType: SortType) {
-        userPreference.copy(
-            sortType = sortType
-        )
+        userPreference.sortType = sortType
     }
 }

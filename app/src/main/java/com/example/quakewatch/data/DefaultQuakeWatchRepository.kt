@@ -31,12 +31,6 @@ class DefaultQuakeWatchRepository @Inject constructor(
         localDataSource.upsertAll(localEarthquakes)
     }
 
-//    override fun getEarthquakesStream(): Flow<List<Earthquake>> {
-//        return localDataSource.observeAll().map {
-//            it.toExternal()
-//        }
-//    }
-
     override fun getEarthquakesSortByTimeStream(): Flow<List<Earthquake>> {
         return localDataSource.observeAllByTime().map {
             it.toExternal()

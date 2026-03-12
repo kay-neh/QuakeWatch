@@ -12,9 +12,6 @@ interface EarthquakeDao {
     @Upsert
     suspend fun upsertAll(localEarthquakes: List<LocalEarthquake>)
 
-//    @Query("SELECT * FROM earthquake")
-//    fun observeAll(): Flow<List<LocalEarthquake>>
-
     @Query("SELECT * FROM earthquake ORDER BY time DESC")
     fun observeAllByTime(): Flow<List<LocalEarthquake>>
 

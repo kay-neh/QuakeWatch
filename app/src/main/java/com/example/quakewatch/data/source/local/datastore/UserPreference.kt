@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserPreference(
-    val sortType: SortType = SortType.BY_TIME,
+    var sortType: SortType = SortType.BY_TIME,
 )
 
 enum class SortType {

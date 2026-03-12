@@ -18,10 +18,6 @@ class EarthquakeLocalDataSource @Inject constructor(
         dao.upsertAll(localEarthquakes)
     }
 
-//    override fun observeAll(): Flow<List<LocalEarthquake>> {
-//        return dao.observeAll()
-//    }
-
     override fun observeAllByTime(): Flow<List<LocalEarthquake>> {
         return dao.observeAllByTime()
     }
