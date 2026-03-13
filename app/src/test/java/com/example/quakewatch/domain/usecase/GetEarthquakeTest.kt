@@ -1,13 +1,11 @@
 package com.example.quakewatch.domain.usecase
 
 import com.example.quakewatch.data.FakeRepository
-import com.example.quakewatch.data.source.local.room.LocalEarthquake
 import com.example.quakewatch.data.source.network.Geometry
 import com.example.quakewatch.data.source.network.NetworkEarthquake
 import com.example.quakewatch.data.source.network.Property
-import com.example.quakewatch.data.toExternal
-import com.example.quakewatch.data.toLocal
-import com.example.quakewatch.domain.repository.QuakeWatchRepository
+import com.example.quakewatch.data.mapper.toExternal
+import com.example.quakewatch.data.mapper.toLocal
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

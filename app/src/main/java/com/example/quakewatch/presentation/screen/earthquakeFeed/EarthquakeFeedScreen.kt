@@ -1,4 +1,4 @@
-package com.example.quakewatch.presentation.earthquakakeFeed
+package com.example.quakewatch.presentation.screen.earthquakeFeed
 
 import android.content.Context
 import androidx.compose.foundation.background
@@ -221,7 +221,7 @@ fun getMagnitudeColor(context: Context, magnitude: Double): Int {
 
 @Preview
 @Composable
-private fun PreviewSettingsScreen() {
+private fun PreviewEarthquakeItem() {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background

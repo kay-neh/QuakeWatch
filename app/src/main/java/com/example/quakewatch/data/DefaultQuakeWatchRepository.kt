@@ -1,17 +1,16 @@
 package com.example.quakewatch.data
 
+import com.example.quakewatch.data.mapper.toExternal
 import com.example.quakewatch.data.source.local.LocalDataSource
-import com.example.quakewatch.data.source.local.datastore.SortType
-import com.example.quakewatch.data.source.local.datastore.UserPreference
 import com.example.quakewatch.data.source.local.room.LocalEarthquake
 import com.example.quakewatch.data.source.network.NetworkDataSource
 import com.example.quakewatch.data.source.network.NetworkEarthquake
-import com.example.quakewatch.data.source.network.NetworkEarthquakeProperty
 import com.example.quakewatch.domain.model.Earthquake
+import com.example.quakewatch.domain.model.SortType
+import com.example.quakewatch.domain.model.UserPreference
 import com.example.quakewatch.domain.repository.QuakeWatchRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import retrofit2.Response
 import javax.inject.Inject
 
 class DefaultQuakeWatchRepository @Inject constructor(
@@ -20,11 +19,7 @@ class DefaultQuakeWatchRepository @Inject constructor(
 ): QuakeWatchRepository {
 
     override suspend fun loadEarthquakes(): List<NetworkEarthquake> {
-        val response = networkDataSource.loadEarthquakes()
-        if(response.isSuccessful) {
-            return response.body()?.networkEarthquakes ?: emptyList()
-        }
-        return emptyList()
+        return networkDataSource.loadEarthquakes()
     }
 
     override suspend fun upsertEarthquakes(localEarthquakes: List<LocalEarthquake>) {
@@ -54,11 +49,17 @@ class DefaultQuakeWatchRepository @Inject constructor(
     }
 
     override fun getUserPreference(): Flow<UserPreference> {
-        return localDataSource.getUserPreference()
+        return localDataSource.getAppPreference().map {
+            it.toExternal()
+        }
     }
 
     override suspend fun setSortType(sortType: SortType) {
         localDataSource.setSortType(sortType)
+    }
+
+    override suspend fun setDarkTheme(isDarkTheme: Boolean) {
+        localDataSource.setDarkTheme(isDarkTheme)
     }
 
 

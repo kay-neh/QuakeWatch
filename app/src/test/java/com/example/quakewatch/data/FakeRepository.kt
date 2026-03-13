@@ -1,20 +1,24 @@
 package com.example.quakewatch.data
 
-import com.example.quakewatch.data.source.local.datastore.SortType
-import com.example.quakewatch.data.source.local.datastore.UserPreference
+import com.example.quakewatch.data.mapper.toExternal
+import com.example.quakewatch.data.mapper.toLocal
+import com.example.quakewatch.data.source.local.datastore.AppPreference
 import com.example.quakewatch.data.source.local.room.LocalEarthquake
 import com.example.quakewatch.data.source.network.NetworkEarthquake
 import com.example.quakewatch.domain.model.Earthquake
+import com.example.quakewatch.domain.model.SortType
+import com.example.quakewatch.domain.model.UserPreference
 import com.example.quakewatch.domain.repository.QuakeWatchRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 
 class FakeRepository : QuakeWatchRepository {
 
     private val networkEarthquakes = mutableListOf<NetworkEarthquake>()
     private val localEarthquakes = mutableListOf<LocalEarthquake>()
-    private val userPreference = UserPreference()
+    private val appPreference = AppPreference()
 
     fun setNetworkResponse(networkEarthquakes: List<NetworkEarthquake>) {
         networkEarthquakes.forEach {
@@ -69,10 +73,16 @@ class FakeRepository : QuakeWatchRepository {
     }
 
     override fun getUserPreference(): Flow<UserPreference> {
-        return flowOf(userPreference)
+        return flowOf(appPreference).map {
+            it.toExternal()
+        }
     }
 
     override suspend fun setSortType(sortType: SortType) {
-        userPreference.sortType = sortType
+        appPreference.sortType = sortType
+    }
+
+    override suspend fun setDarkTheme(isDarkTheme: Boolean) {
+        appPreference.isDarkTheme = isDarkTheme
     }
 }

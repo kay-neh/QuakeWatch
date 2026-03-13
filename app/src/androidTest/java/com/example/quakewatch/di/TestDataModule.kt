@@ -37,7 +37,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+abstract class TestRepositoryModule {
 
     @Binds
     @Singleton
@@ -67,7 +67,7 @@ abstract class RepositoryModule {
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object TestAppModule {
 
     @Provides
     @Singleton
@@ -82,11 +82,12 @@ object AppModule {
     @Provides
     @Singleton
     fun provideQuakeWatchDatabase(app: Application): QuakeWatchDatabase {
-        return Room.databaseBuilder(
+        return Room.inMemoryDatabaseBuilder(
             app,
-            QuakeWatchDatabase::class.java,
-            "quake_watch_db"
-        ).build()
+            QuakeWatchDatabase::class.java
+        )
+            .allowMainThreadQueries()
+            .build()
     }
 
     @Provides
@@ -129,13 +130,5 @@ object AppModule {
             updateSortTypePreference = UpdateSortTypePreference(repository)
         )
     }
-//
-//    @Provides
-//    @Singleton
-//    fun provideEarthquakeUseCase(repository: QuakeWatchRepository): GetEarthquake {
-//        return GetEarthquake(
-//            repository
-//        )
-//    }
 
 }

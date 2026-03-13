@@ -1,11 +1,10 @@
 package com.example.quakewatch.data.source.local
 
-import androidx.datastore.core.DataStore
 import com.example.quakewatch.data.source.local.datastore.PreferenceDataSource
-import com.example.quakewatch.data.source.local.datastore.SortType
-import com.example.quakewatch.data.source.local.datastore.UserPreference
+import com.example.quakewatch.data.source.local.datastore.AppPreference
 import com.example.quakewatch.data.source.local.room.EarthquakeDao
 import com.example.quakewatch.data.source.local.room.LocalEarthquake
+import com.example.quakewatch.domain.model.SortType
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -42,12 +41,16 @@ class EarthquakeLocalDataSource @Inject constructor(
         dao.deleteAll()
     }
 
-    override fun getUserPreference(): Flow<UserPreference> {
-        return preferenceDataSource.getUserPreference()
+    override fun getAppPreference(): Flow<AppPreference> {
+        return preferenceDataSource.getAppPreference()
     }
 
     override suspend fun setSortType(sortType: SortType) {
         preferenceDataSource.setSortType(sortType)
+    }
+
+    override suspend fun setDarkTheme(isDarkTheme: Boolean) {
+        preferenceDataSource.setDarkTheme(isDarkTheme)
     }
 
 }

@@ -1,12 +1,12 @@
 package com.example.quakewatch.domain.usecase
 
 import com.example.quakewatch.data.FakeRepository
-import com.example.quakewatch.data.source.local.datastore.SortType
 import com.example.quakewatch.data.source.network.Geometry
 import com.example.quakewatch.data.source.network.NetworkEarthquake
 import com.example.quakewatch.data.source.network.Property
-import com.example.quakewatch.data.toExternal
-import com.example.quakewatch.data.toLocal
+import com.example.quakewatch.data.mapper.toExternal
+import com.example.quakewatch.data.mapper.toLocal
+import com.example.quakewatch.domain.model.SortType
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -82,6 +82,7 @@ class GetSortedEarthquakesTest {
         val expectedResult = networkEarthquakesToInsert.toLocal().toExternal().sortedByDescending {
             it.time
         }
+
         assertThat(result).isEqualTo(expectedResult)
     }
 

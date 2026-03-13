@@ -1,8 +1,7 @@
 package com.example.quakewatch.domain.usecase
 
 import com.example.quakewatch.data.FakeRepository
-import com.example.quakewatch.data.source.local.datastore.SortType
-import com.example.quakewatch.data.source.local.datastore.UserPreference
+import com.example.quakewatch.domain.model.SortType
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

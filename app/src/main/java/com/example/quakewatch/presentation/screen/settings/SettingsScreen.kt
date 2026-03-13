@@ -1,4 +1,4 @@
-package com.example.quakewatch.presentation.settings
+package com.example.quakewatch.presentation.screen.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.quakewatch.R
-import com.example.quakewatch.data.source.local.datastore.SortType
+import com.example.quakewatch.domain.model.SortType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

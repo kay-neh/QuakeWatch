@@ -6,11 +6,11 @@ import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
-class UserPreferenceSerializer : Serializer<UserPreference> {
-    override suspend fun readFrom(input: InputStream): UserPreference {
+class AppPreferenceSerializer : Serializer<AppPreference> {
+    override suspend fun readFrom(input: InputStream): AppPreference {
         return try {
             Json.decodeFromString(
-                deserializer = UserPreference.serializer(),
+                deserializer = AppPreference.serializer(),
                 string = input.readBytes().decodeToString()
             )
         } catch (e: SerializationException) {
@@ -20,17 +20,17 @@ class UserPreferenceSerializer : Serializer<UserPreference> {
     }
 
     override suspend fun writeTo(
-        t: UserPreference,
+        t: AppPreference,
         output: OutputStream
     ) {
         output.write(
             Json.encodeToString(
-                serializer = UserPreference.serializer(),
+                serializer = AppPreference.serializer(),
                 value = t
             ).encodeToByteArray()
         )
     }
 
-    override val defaultValue: UserPreference
-        get() = UserPreference()
+    override val defaultValue: AppPreference
+        get() = AppPreference()
 }

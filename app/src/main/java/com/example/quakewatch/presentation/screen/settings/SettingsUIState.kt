@@ -1,6 +1,6 @@
-package com.example.quakewatch.presentation.settings
+package com.example.quakewatch.presentation.screen.settings
 
-import com.example.quakewatch.data.source.local.datastore.UserPreference
+import com.example.quakewatch.domain.model.UserPreference
 
 data class SettingsUIState(
     val userPreference: UserPreference = UserPreference(),

@@ -1,11 +1,8 @@
-package com.example.quakewatch.presentation.earthquakeDetail
+package com.example.quakewatch.presentation.screen.earthquakeDetail
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.navigation.toRoute
-import com.example.quakewatch.domain.model.toEarthquakeDetail
 import com.example.quakewatch.domain.usecase.QuakeWatchUseCases
-import com.example.quakewatch.navigation.Route
+import com.example.quakewatch.presentation.mapper.toEarthquakeDetail
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -13,7 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 @HiltViewModel(
     assistedFactory =

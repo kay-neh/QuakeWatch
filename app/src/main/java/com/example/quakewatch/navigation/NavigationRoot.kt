@@ -14,12 +14,12 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import com.example.quakewatch.presentation.earthquakeDetail.EarthquakeDetailScreen
-import com.example.quakewatch.presentation.earthquakeDetail.EarthquakeDetailViewModel
-import com.example.quakewatch.presentation.earthquakakeFeed.EarthquakeFeedScreen
-import com.example.quakewatch.presentation.earthquakakeFeed.EarthquakeFeedViewModel
-import com.example.quakewatch.presentation.settings.SettingsScreen
-import com.example.quakewatch.presentation.settings.SettingsViewModel
+import com.example.quakewatch.presentation.screen.earthquakeDetail.EarthquakeDetailScreen
+import com.example.quakewatch.presentation.screen.earthquakeDetail.EarthquakeDetailViewModel
+import com.example.quakewatch.presentation.screen.earthquakeFeed.EarthquakeFeedScreen
+import com.example.quakewatch.presentation.screen.earthquakeFeed.EarthquakeFeedViewModel
+import com.example.quakewatch.presentation.screen.settings.SettingsScreen
+import com.example.quakewatch.presentation.screen.settings.SettingsViewModel
 
 @Composable
 fun NavigationRoot(modifier: Modifier = Modifier) {

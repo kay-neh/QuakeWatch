@@ -1,16 +1,13 @@
 package com.example.quakewatch.domain.usecase
 
 import com.example.quakewatch.data.FakeRepository
-import com.example.quakewatch.data.source.local.datastore.SortType
-import com.example.quakewatch.data.source.local.datastore.UserPreference
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-class GetUserPreferenceTest {
+class GetAppPreferenceTest {
 
     private lateinit var fakeRepository: FakeRepository
     private lateinit var getUserPreference: GetUserPreference

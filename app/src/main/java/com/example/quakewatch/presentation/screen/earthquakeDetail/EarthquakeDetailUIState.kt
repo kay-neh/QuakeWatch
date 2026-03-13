@@ -1,4 +1,4 @@
-package com.example.quakewatch.presentation.earthquakeDetail
+package com.example.quakewatch.presentation.screen.earthquakeDetail
 
 data class EarthquakeDetailUIState(
     val earthquakeDetail: EarthquakeDetail = EarthquakeDetail(

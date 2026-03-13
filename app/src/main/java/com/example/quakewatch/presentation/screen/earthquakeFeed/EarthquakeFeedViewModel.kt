@@ -1,10 +1,10 @@
-package com.example.quakewatch.presentation.earthquakakeFeed
+package com.example.quakewatch.presentation.screen.earthquakeFeed
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.quakewatch.domain.model.toEarthquakeFeedList
 import com.example.quakewatch.domain.usecase.QuakeWatchUseCases
+import com.example.quakewatch.presentation.mapper.toEarthquakeFeedList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine

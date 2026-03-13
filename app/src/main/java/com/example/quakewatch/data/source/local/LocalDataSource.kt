@@ -1,15 +1,13 @@
 package com.example.quakewatch.data.source.local
 
-import com.example.quakewatch.data.source.local.datastore.SortType
-import com.example.quakewatch.data.source.local.datastore.UserPreference
+import com.example.quakewatch.data.source.local.datastore.AppPreference
 import com.example.quakewatch.data.source.local.room.LocalEarthquake
+import com.example.quakewatch.domain.model.SortType
 import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource {
 
     suspend fun upsertAll(localEarthquakes: List<LocalEarthquake>)
-
-    // fun observeAll(): Flow<List<LocalEarthquake>>
 
     fun observeAllByTime(): Flow<List<LocalEarthquake>>
 
@@ -23,11 +21,11 @@ interface LocalDataSource {
 
     suspend fun deleteAll()
 
-    fun getUserPreference(): Flow<UserPreference>
+    fun getAppPreference(): Flow<AppPreference>
 
     suspend fun setSortType(sortType: SortType)
 
-
+    suspend fun setDarkTheme(isDarkTheme: Boolean)
 
 
 }

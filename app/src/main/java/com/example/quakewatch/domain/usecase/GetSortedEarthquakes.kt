@@ -1,7 +1,7 @@
 package com.example.quakewatch.domain.usecase
 
-import com.example.quakewatch.data.source.local.datastore.SortType
 import com.example.quakewatch.domain.model.Earthquake
+import com.example.quakewatch.domain.model.SortType
 import com.example.quakewatch.domain.repository.QuakeWatchRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow

@@ -1,8 +1,10 @@
-package com.example.quakewatch.data
+package com.example.quakewatch.data.mapper
 
+import com.example.quakewatch.data.source.local.datastore.AppPreference
 import com.example.quakewatch.data.source.local.room.LocalEarthquake
 import com.example.quakewatch.data.source.network.NetworkEarthquake
 import com.example.quakewatch.domain.model.Earthquake
+import com.example.quakewatch.domain.model.UserPreference
 
 // Network DTO to Local DTO
 fun NetworkEarthquake.toLocal() =
@@ -41,3 +43,7 @@ fun List<LocalEarthquake>.toExternal() =
         it.toExternal()
     }
 
+fun AppPreference.toExternal() =
+    UserPreference(
+        sortType = sortType
+    )

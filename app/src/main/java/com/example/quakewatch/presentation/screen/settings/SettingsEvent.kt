@@ -1,6 +1,6 @@
-package com.example.quakewatch.presentation.settings
+package com.example.quakewatch.presentation.screen.settings
 
-import com.example.quakewatch.data.source.local.datastore.SortType
+import com.example.quakewatch.domain.model.SortType
 
 sealed interface SettingsEvent {
     object ShowSortTypeDialog : SettingsEvent

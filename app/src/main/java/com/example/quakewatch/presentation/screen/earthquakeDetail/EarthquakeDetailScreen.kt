@@ -1,4 +1,4 @@
-package com.example.quakewatch.presentation.earthquakeDetail
+package com.example.quakewatch.presentation.screen.earthquakeDetail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

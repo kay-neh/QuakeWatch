@@ -1,8 +1,9 @@
-package com.example.quakewatch.presentation.settings
+package com.example.quakewatch.presentation.screen.settings
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.quakewatch.domain.model.UserPreference
 import com.example.quakewatch.domain.usecase.UserPreferenceUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
