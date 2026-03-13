@@ -36,6 +36,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.quakewatch.R
 import com.example.quakewatch.domain.model.SortType
+import com.example.quakewatch.presentation.screen.settings.components.SortTypeDialog
+import com.example.quakewatch.presentation.screen.settings.components.SortTypePreference
+import com.example.quakewatch.presentation.screen.settings.components.ThemeModePreference
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,7 +67,7 @@ fun SettingsScreen(
         }
     ) {
         if (state.isUpdatingSortType) {
-            UpdateSortTypeDialog(
+            SortTypeDialog(
                 state = state,
                 onEvent = onEvent
             )
@@ -85,183 +88,8 @@ fun SettingsScreen(
 
 }
 
-@Composable
-fun SortTypePreference(
-    modifier: Modifier = Modifier,
-    state: SettingsUIState,
-    onEvent: (SettingsEvent) -> Unit
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .clickable {
-                onEvent(SettingsEvent.ShowSortTypeDialog)
-            },
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            imageVector = ImageVector.vectorResource(R.drawable.flex_direction_24px),
-            contentDescription = null
-        )
-        Spacer(modifier = modifier.padding(16.dp))
-        Column(
-            modifier = modifier
-        ) {
-            Text(
-                text = "Sort By",
-                fontSize = 18.sp,
-                style = MaterialTheme.typography.labelLarge
-            )
-            Text(
-                text = when (state.userPreference.sortType) {
-                    SortType.BY_TIME -> "Time"
-                    SortType.BY_MAGNITUDE -> "Magnitude"
-                }
-            )
-        }
-    }
-}
-
-@Composable
-fun ThemeModePreference(
-    modifier: Modifier = Modifier
-) {
-    var isChecked by remember { mutableStateOf(false) }
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Icon(
-            modifier = modifier,
-            imageVector = ImageVector.vectorResource(R.drawable.light_mode_24px),
-            contentDescription = null
-        )
-        Spacer(modifier = modifier.padding(16.dp))
-        Column(
-            modifier = modifier
-        ) {
-            Text(
-                text = "Night Mode",
-                fontSize = 18.sp,
-                style = MaterialTheme.typography.labelLarge
-            )
-            Text(text = if (isChecked) "On" else "Off")
-        }
-        Spacer(
-            modifier = modifier
-                .padding(16.dp)
-                .weight(1f)
-        )
-        Switch(
-            modifier = modifier,
-            checked = isChecked,
-            onCheckedChange = {
-                isChecked = it
-            },
-            thumbContent = {
-                Icon(
-                    imageVector = if (isChecked) ImageVector.vectorResource(R.drawable.check_24px)
-                    else ImageVector.vectorResource(R.drawable.close_24px),
-                    contentDescription = null
-                )
-            }
-
-        )
-    }
-}
-
-@Composable
-fun UpdateSortTypeDialog(
-    modifier: Modifier = Modifier,
-    state: SettingsUIState,
-    onEvent: (SettingsEvent) -> Unit
-) {
-    var selectedSortType by remember { mutableStateOf(state.userPreference.sortType) }
-    AlertDialog(
-        modifier = modifier,
-        onDismissRequest = {
-            onEvent(SettingsEvent.HideSortTypeDialog)
-            selectedSortType = state.userPreference.sortType
-        },
-        title = {
-            Text(text = "Sort By")
-        },
-        text = {
-            Column(
-            ) {
-                SortType.entries.forEach { sortType ->
-                    Row(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                selectedSortType = sortType
-                            },
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        RadioButton(
-                            selected = selectedSortType == sortType,
-                            onClick = {
-                                selectedSortType = sortType
-                            }
-                        )
-                        Text(
-                            text = when (sortType) {
-                                SortType.BY_TIME -> "Time"
-                                SortType.BY_MAGNITUDE -> "Magnitude"
-                            },
-                            fontSize = 16.sp
-                        )
-                    }
-                }
-            }
-        },
-        confirmButton = {
-            Box() {
-                TextButton(
-                    onClick = {
-                        onEvent(SettingsEvent.UpdateSortType(selectedSortType))
-                        onEvent(SettingsEvent.HideSortTypeDialog)
-                    }
-                ) {
-                    Text(
-                        text = "Ok",
-                        fontSize = 16.sp
-                    )
-                }
-            }
-        },
-        dismissButton = {
-            Box() {
-                TextButton(
-                    onClick = {
-                        onEvent(SettingsEvent.HideSortTypeDialog)
-                        selectedSortType = state.userPreference.sortType
-                    }
-                ) {
-                    Text(
-                        text = "Cancel",
-                        fontSize = 16.sp
-                    )
-                }
-            }
-        }
-    )
-}
-
 @Preview
 @Composable
 private fun PreviewSettingsScreen() {
-//    SettingsScreen(onNavigate = {})
-}
-
-@Preview
-@Composable
-private fun PreviewSortTypePreference() {
-    UpdateSortTypeDialog(
-        onEvent = {},
-        state = SettingsUIState()
-    )
+    //SettingsScreen(onNavigate = {})
 }
