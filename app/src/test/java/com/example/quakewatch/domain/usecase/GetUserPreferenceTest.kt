@@ -7,7 +7,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-class GetAppPreferenceTest {
+class GetUserPreferenceTest {
 
     private lateinit var fakeRepository: FakeRepository
     private lateinit var getUserPreference: GetUserPreference

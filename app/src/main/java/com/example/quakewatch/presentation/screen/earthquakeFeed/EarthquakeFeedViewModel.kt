@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.quakewatch.domain.usecase.QuakeWatchUseCases
 import com.example.quakewatch.presentation.mapper.toEarthquakeFeedList
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map

@@ -1,13 +1,7 @@
 package com.example.quakewatch.presentation.screen.earthquakeFeed
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -27,19 +21,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.quakewatch.R
 import com.example.quakewatch.presentation.screen.earthquakeFeed.components.EarthquakeFeed
-import com.example.quakewatch.presentation.screen.earthquakeFeed.components.EarthquakeFeedItem
-import com.example.quakewatch.presentation.util.getMagnitudeColor
-import kotlin.math.floor
+import com.example.quakewatch.presentation.screen.earthquakeFeed.components.EarthquakeItemPreview
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EarthquakeFeedScreen(
     modifier: Modifier = Modifier,
@@ -47,8 +34,25 @@ fun EarthquakeFeedScreen(
     onNavigate: () -> Unit,
     onItemClick: (String) -> Unit
 ) {
-    val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val state by viewModel.state.collectAsStateWithLifecycle(EarthquakeFeedUIState())
+    EarthquakeFeedScreen(
+        modifier = modifier,
+        state = state,
+        onNavigate = onNavigate,
+        onItemClick = onItemClick
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EarthquakeFeedScreen(
+    modifier: Modifier = Modifier,
+    state: EarthquakeFeedUIState,
+    onNavigate: () -> Unit,
+    onItemClick: (String) -> Unit
+) {
+
+    val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
         modifier = Modifier
@@ -75,6 +79,41 @@ fun EarthquakeFeedScreen(
             onItemClick = { eventId ->
                 onItemClick(eventId)
             }
+        )
+    }
+
+}
+
+@Preview
+@Composable
+private fun PreviewEarthquakeItem() {
+
+    val list = mutableListOf<EarthquakeFeed>()
+    for (i in 1..15) {
+        list.add(
+            EarthquakeFeed(
+                eventId = "$i",
+                magnitude = "3.5",
+                location = "location $i",
+                offset = "Shores of Alaska",
+                date = "1$i March 2026",
+                time = "12:30am"
+            )
+        )
+    }
+
+    val state = EarthquakeFeedUIState(
+        earthquakes = list
+    )
+
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        EarthquakeFeedScreen(
+            state = state,
+            onNavigate = {},
+            onItemClick = {}
         )
     }
 }
