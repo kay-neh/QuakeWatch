@@ -40,7 +40,6 @@ import com.example.quakewatch.presentation.screen.settings.components.SortTypeDi
 import com.example.quakewatch.presentation.screen.settings.components.SortTypePreference
 import com.example.quakewatch.presentation.screen.settings.components.ThemeModePreference
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
@@ -49,6 +48,22 @@ fun SettingsScreen(
     onNavigate: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    SettingsScreen(
+        modifier = modifier,
+        state = state,
+        onEvent = onEvent,
+        onNavigate = onNavigate
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SettingsScreen(
+    modifier: Modifier = Modifier,
+    state: SettingsUIState,
+    onEvent: (SettingsEvent) -> Unit,
+    onNavigate: () -> Unit
+) {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -85,11 +100,14 @@ fun SettingsScreen(
             ThemeModePreference()
         }
     }
-
 }
 
 @Preview
 @Composable
 private fun PreviewSettingsScreen() {
-    //SettingsScreen(onNavigate = {})
+    SettingsScreen(
+        state = SettingsUIState(),
+        onEvent = {},
+        onNavigate = {}
+    )
 }

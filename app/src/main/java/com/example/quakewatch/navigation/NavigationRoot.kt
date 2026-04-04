@@ -67,7 +67,10 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
                         }
                     )
                 EarthquakeDetailScreen(
-                    viewModel = viewmodel
+                    viewModel = viewmodel,
+                    onNavigate = { eventId ->
+                        backStack.remove(Route.EarthquakeDetail(eventId = eventId))
+                    }
                 )
             }
             entry<Route.Settings> {

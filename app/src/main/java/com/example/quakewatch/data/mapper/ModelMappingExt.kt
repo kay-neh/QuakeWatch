@@ -14,8 +14,8 @@ fun NetworkEarthquake.toLocal() =
         place = property.place,
         time = property.time,
         url = property.url,
-        latitude = geometry.coordinates[0],
-        longitude = geometry.coordinates[1],
+        longitude = geometry.coordinates[0],
+        latitude = geometry.coordinates[1],
         depth = geometry.coordinates[2]
     )
 

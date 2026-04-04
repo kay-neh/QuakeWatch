@@ -12,7 +12,12 @@ import kotlin.math.floor
 
 fun formatMagnitude(magnitude: Double): String {
     val magnitudeFormat = DecimalFormat("0.0")
-    return magnitudeFormat.format(magnitude)
+    val s = magnitudeFormat.format(magnitude)
+    return if (s.contains("-")) {
+        s.replace("-", "")
+    } else {
+        s
+    }
 }
 
 fun getLocation(place: String?): String {
@@ -57,9 +62,33 @@ fun formatDateTime(time: Long): String {
     return dateFormat.format(dateObject)
 }
 
-fun formatThreeDecimal(number: Double): String? {
-    val magnitudeFormat = DecimalFormat("0.000")
+fun formatTwoDecimal(number: Double): String {
+    val magnitudeFormat = DecimalFormat("0.00")
     return magnitudeFormat.format(number)
+}
+
+fun getDegreeFromLat(latitude: Double): String {
+    val s = formatTwoDecimal(latitude)
+    return if (s.contains("-")) {
+        s.replace("-", "") + "°S"
+    } else {
+        "$s°N"
+    }
+}
+
+fun getDegreeFromLng(longitude: Double): String {
+    val s = formatTwoDecimal(longitude)
+    return if (s.contains("-")) {
+        s.replace("-", "") + "°W"
+    } else {
+        "$s°E"
+    }
+}
+
+fun formatPointCoordinates(latitude: Double, longitude: Double): String {
+    val lat = getDegreeFromLat(latitude)
+    val lng = getDegreeFromLng(longitude)
+    return "$lat, $lng"
 }
 
 fun getMagnitudeColor(context: Context, magnitude: Double): Int {

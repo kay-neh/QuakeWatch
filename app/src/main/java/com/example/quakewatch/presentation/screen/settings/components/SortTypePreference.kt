@@ -11,6 +11,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -149,7 +150,21 @@ fun SortTypeDialog(
 
 @Preview
 @Composable
-private fun PreviewSortTypePreference() {
+private fun PreviewThemeModePreference() {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        SortTypePreference(
+            state = SettingsUIState(),
+            onEvent = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewSortTypeDialog() {
     SortTypeDialog(
         onEvent = {},
         state = SettingsUIState()

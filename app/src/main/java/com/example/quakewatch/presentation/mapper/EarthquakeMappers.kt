@@ -7,9 +7,11 @@ import com.example.quakewatch.presentation.screen.earthquakeDetail.EarthquakeDet
 import com.example.quakewatch.presentation.util.formatDate
 import com.example.quakewatch.presentation.util.formatDateTime
 import com.example.quakewatch.presentation.util.formatMagnitude
+import com.example.quakewatch.presentation.util.formatTwoDecimal
 import com.example.quakewatch.presentation.util.formatTime
 import com.example.quakewatch.presentation.util.getLocation
 import com.example.quakewatch.presentation.util.getOffset
+import com.google.android.gms.maps.model.LatLng
 
 fun Earthquake.toEarthquakeFeed(): EarthquakeFeed {
     return EarthquakeFeed(
@@ -35,8 +37,9 @@ fun Earthquake.toEarthquakeDetail(): EarthquakeDetail {
         place = getLocation(place),
         time = formatDateTime(time),
         url = url,
-        longitude = 0.0,
-        latitude = 0.0,
-        depth = 0.0
+        latitude = latitude,
+        longitude = longitude,
+        depth = formatTwoDecimal(depth).toDouble(),
+        markerLocation = LatLng(latitude, longitude)
     )
 }
