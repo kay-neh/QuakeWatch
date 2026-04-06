@@ -9,11 +9,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,6 +31,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.quakewatch.R
 import com.example.quakewatch.presentation.screen.earthquakeFeed.components.EarthquakeFeed
 import com.example.quakewatch.presentation.screen.earthquakeFeed.components.EarthquakeItemPreview
+import com.example.quakewatch.presentation.util.SnackBarController
+import kotlinx.coroutines.flow.collect
 
 @Composable
 fun EarthquakeFeedScreen(
@@ -34,7 +41,9 @@ fun EarthquakeFeedScreen(
     onNavigate: () -> Unit,
     onItemClick: (String) -> Unit
 ) {
+
     val state by viewModel.state.collectAsStateWithLifecycle(EarthquakeFeedUIState())
+
     EarthquakeFeedScreen(
         modifier = modifier,
         state = state,
@@ -53,12 +62,30 @@ fun EarthquakeFeedScreen(
 ) {
 
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val snackBarHostState = remember {
+        SnackbarHostState()
+    }
+
+    LaunchedEffect(true) {
+        SnackBarController.events.collect {
+            snackBarHostState.showSnackbar(
+                message = it.message,
+                duration = SnackbarDuration.Short
+            )
+        }
+    }
+
 
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(scrollBehaviour.nestedScrollConnection),
 //        contentWindowInsets = WindowInsets.statusBars,
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackBarHostState
+            )
+        },
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
@@ -94,10 +121,10 @@ private fun PreviewEarthquakeItem() {
             EarthquakeFeed(
                 eventId = "$i",
                 magnitude = "3.5",
-                location = "location $i",
-                offset = "Shores of Alaska",
-                date = "1$i March 2026",
-                time = "12:30am"
+                location = "Pearl Harbor $i",
+                offset = "3km NE of",
+                date = "Apr 1$i, 2026",
+                time = "12:30 AM"
             )
         )
     }

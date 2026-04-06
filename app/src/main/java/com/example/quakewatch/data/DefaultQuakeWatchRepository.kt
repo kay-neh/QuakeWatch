@@ -9,6 +9,8 @@ import com.example.quakewatch.domain.model.Earthquake
 import com.example.quakewatch.domain.model.SortType
 import com.example.quakewatch.domain.model.UserPreference
 import com.example.quakewatch.domain.repository.QuakeWatchRepository
+import com.example.quakewatch.domain.util.NetworkError
+import com.example.quakewatch.domain.util.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -18,7 +20,7 @@ class DefaultQuakeWatchRepository @Inject constructor(
     val localDataSource: LocalDataSource
 ): QuakeWatchRepository {
 
-    override suspend fun loadEarthquakes(): List<NetworkEarthquake> {
+    override suspend fun loadEarthquakes(): Result<List<NetworkEarthquake>, NetworkError> {
         return networkDataSource.loadEarthquakes()
     }
 

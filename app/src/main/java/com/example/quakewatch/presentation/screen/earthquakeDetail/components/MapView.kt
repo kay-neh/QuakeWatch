@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.quakewatch.R
 import com.example.quakewatch.presentation.screen.earthquakeDetail.EarthquakeDetail
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -53,6 +54,8 @@ fun MapView(
     // Initialize the camera position state, which controls the camera's position on the map
     val cameraPositionState = rememberCameraPositionState()
 
+    //val icon = BitmapDescriptorFactory.fromResource(R.drawable.light_mode_24px)
+
     LaunchedEffect(earthquakeDetail.markerLocation) {
         earthquakeDetail.markerLocation?.let { target ->
             // This block runs ONLY when the Composable is "Active",
@@ -78,7 +81,8 @@ fun MapView(
             Marker(
                 state = rememberUpdatedMarkerState(position = it),
                 title = earthquakeDetail.place,
-                snippet = "Marker in Location"
+                snippet = "Marker in Location",
+                //   icon = icon
             )
         }
     }

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.text.TextAutoSizeDefaults
@@ -23,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quakewatch.presentation.screen.earthquakeFeed.EarthquakeFeed
 import com.example.quakewatch.presentation.screen.earthquakeFeed.EarthquakeFeedUIState
+import com.example.quakewatch.presentation.util.ScrollToTopController
 import com.example.quakewatch.presentation.util.getMagnitudeColor
 
 
@@ -45,9 +48,20 @@ fun EarthquakeFeed(
     state: EarthquakeFeedUIState,
     onItemClick: (String) -> Unit
 ) {
+
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(true) {
+        ScrollToTopController.events.collect {
+            listState.animateScrollToItem(index = 0)
+        }
+    }
+
+
     LazyColumn(
         modifier = modifier
-            .clipToBounds()
+            .clipToBounds(),
+        state = listState
     ) {
         items(
             items = state.earthquakes,
@@ -155,7 +169,7 @@ fun EarthquakeItemPreview(modifier: Modifier = Modifier) {
         magnitude = "2.5",
         location = "Erlands Point-Kitsap Lake, Washington",
         offset = "3 km SW of",
-        date = "10/10/2023",
+        date = "Apr 04, 2026",
         time = "10:10 AM"
     )
     EarthquakeFeedItem(

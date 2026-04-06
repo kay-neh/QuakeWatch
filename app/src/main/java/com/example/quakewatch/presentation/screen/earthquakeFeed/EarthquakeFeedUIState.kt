@@ -1,7 +1,7 @@
 package com.example.quakewatch.presentation.screen.earthquakeFeed
 
 data class EarthquakeFeedUIState(
-    val earthquakes: List<EarthquakeFeed> = emptyList(),
+    val earthquakes: List<EarthquakeFeed> = emptyList()
 )
 
 data class EarthquakeFeed(

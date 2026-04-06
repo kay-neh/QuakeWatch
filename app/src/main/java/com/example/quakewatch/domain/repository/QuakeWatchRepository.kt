@@ -5,11 +5,13 @@ import com.example.quakewatch.data.source.network.NetworkEarthquake
 import com.example.quakewatch.domain.model.Earthquake
 import com.example.quakewatch.domain.model.SortType
 import com.example.quakewatch.domain.model.UserPreference
+import com.example.quakewatch.domain.util.NetworkError
+import com.example.quakewatch.domain.util.Result
 import kotlinx.coroutines.flow.Flow
 
 interface QuakeWatchRepository {
 
-    suspend fun loadEarthquakes(): List<NetworkEarthquake>
+    suspend fun loadEarthquakes(): Result<List<NetworkEarthquake>, NetworkError>
 
     suspend fun upsertEarthquakes(localEarthquakes: List<LocalEarthquake>)
 
